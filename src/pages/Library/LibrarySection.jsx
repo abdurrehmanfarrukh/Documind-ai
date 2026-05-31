@@ -279,6 +279,7 @@ export function LibrarySection() {
       try {
         const cls = await classifyDocumentFromOcrText({
           text: trimmed || text || '',
+          fileName,
           labels: ['invoice', 'receipt', 'id card', 'report'],
           threshold: 0.6,
         })
@@ -360,6 +361,10 @@ export function LibrarySection() {
           String(classifyErr?.message ?? '').includes('Awaiting unknown folder choice')
         ) {
           // leave classifyError empty so the modal doesn't show a failure
+        } else if (classifiedAs && classifiedAs !== 'unknown') {
+          // Classification succeeded; Storage move or folder update failed — don't hide the result.
+          console.warn('[auto-classify/move]', classifyErr)
+          classifyError = `Classified as "${classifiedAs}", but could not move file: ${classifyErr?.message ?? String(classifyErr)}`
         } else {
           console.warn('[auto-classify/move]', classifyErr)
           classifyError = classifyErr?.message ?? String(classifyErr)
