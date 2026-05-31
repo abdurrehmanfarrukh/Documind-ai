@@ -19,7 +19,7 @@ export async function classifyDocumentFromOcrText({ text, labels, threshold }) {
   }
   if (!base) {
     throw new Error(
-      'Document classifier is not configured. Set VITE_DOC_CLASSIFIER_URL in .env (e.g. http://127.0.0.1:8008) and restart the dev server.',
+      'Document classifier is not configured. Set VITE_DOC_CLASSIFIER_URL in .env (local) or Vercel Environment Variables (production), then rebuild/redeploy.',
     )
   }
   let res

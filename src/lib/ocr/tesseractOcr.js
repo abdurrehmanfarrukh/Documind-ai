@@ -1,4 +1,9 @@
 import { normalizeStoragePath, resolveUserFileBlob } from '../storage/resolveUserFileBlob'
+import { createWorker } from 'tesseract.js'
+import * as pdfjs from 'pdfjs-dist'
+import pdfWorkerUrl from 'pdfjs-dist/build/pdf.worker.min.mjs?url'
+import tesseractWorkerUrl from 'tesseract.js/dist/worker.min.js?url'
+import tesseractCoreUrl from 'tesseract.js-core/tesseract-core-relaxedsimd-lstm.wasm.js?url'
 
 const IMAGE_EXTENSIONS = new Set([
   'png',
@@ -125,10 +130,8 @@ async function ensurePngBlobForTesseract(blob) {
  */
 export async function rasterizePdfFirstPageToPngBlob(pdfBlob, options = {}) {
   const { onProgress } = options
-  const pdfjs = await import('pdfjs-dist')
   if (!pdfWorkerSrcConfigured) {
-    const workerMod = await import('pdfjs-dist/build/pdf.worker.min.mjs?url')
-    pdfjs.GlobalWorkerOptions.workerSrc = workerMod.default
+    pdfjs.GlobalWorkerOptions.workerSrc = pdfWorkerUrl
     pdfWorkerSrcConfigured = true
   }
   onProgress?.(0.02)
@@ -177,31 +180,18 @@ function primaryLangCode(lang) {
 /** Pinned folder so the worker can pick the right SIMD/LSTM `.wasm.js` for this device (matches tesseract.js-core 7.x). */
 const TESSERACT_CORE_CDN_BASE = 'https://cdn.jsdelivr.net/npm/tesseract.js-core@7.0.0'
 
-/**
- * Resolve worker from the app bundle (Vite). Core defaults to the same CDN folder tesseract uses,
- * with an optional bundled `.wasm.js` when `import()` succeeds (avoids core script CDN if your network allows the chunk).
- * Language `.traineddata` loads from jsDelivr unless `VITE_TESSERACT_LANG_PATH` is set.
- */
-async function resolveBundledTesseractPaths(lang) {
+function resolveBundledTesseractPaths(lang) {
   const primary = primaryLangCode(lang)
-  let workerPath
-  try {
-    workerPath = (await import('tesseract.js/dist/worker.min.js?url')).default
-  } catch {
-    workerPath = undefined
-  }
-  let corePath = TESSERACT_CORE_CDN_BASE
-  try {
-    corePath = (await import('tesseract.js-core/tesseract-core-relaxedsimd-lstm.wasm.js?url')).default
-  } catch {
-    /* use CDN base so getCore can choose simd / non-simd build */
-  }
   const envLangPath = import.meta.env.VITE_TESSERACT_LANG_PATH
   const langPath =
     typeof envLangPath === 'string' && envLangPath.trim().length > 0
       ? envLangPath.trim()
       : `https://cdn.jsdelivr.net/npm/@tesseract.js-data/${primary}/4.0.0_best_int`
-  return { workerPath, corePath, langPath }
+  return {
+    workerPath: tesseractWorkerUrl,
+    corePath: tesseractCoreUrl || TESSERACT_CORE_CDN_BASE,
+    langPath,
+  }
 }
 
 /**
@@ -213,9 +203,8 @@ async function resolveBundledTesseractPaths(lang) {
  */
 export async function runOcrOnImageBlob(imageBlob, options = {}) {
   const { onProgress } = options
-  const { createWorker } = await import('tesseract.js')
   const lang = tesseractLang()
-  const { workerPath, corePath, langPath } = await resolveBundledTesseractPaths(lang)
+  const { workerPath, corePath, langPath } = resolveBundledTesseractPaths(lang)
 
   const logger = onProgress
     ? (m) => {
