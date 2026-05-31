@@ -1,5 +1,5 @@
 import { Link, useNavigate } from 'react-router-dom'
-import { Search, Bell, History, LifeBuoy, LogOut, Menu } from 'lucide-react'
+import { Search, LifeBuoy, LogOut, Menu } from 'lucide-react'
 import { useAuth } from '../../context/AuthContext'
 
 const placeholderByPath = {
@@ -9,7 +9,7 @@ const placeholderByPath = {
 
 export function TopBar({ pathKey = 'default', onMenuClick }) {
   const navigate = useNavigate()
-  const { user, logout } = useAuth()
+  const { logout } = useAuth()
   const placeholder =
     placeholderByPath[pathKey] ?? placeholderByPath.default
 
@@ -41,27 +41,6 @@ export function TopBar({ pathKey = 'default', onMenuClick }) {
           <LifeBuoy className="h-4 w-4" />
           <span className="hidden lg:inline">Support</span>
         </Link>
-        <button
-          type="button"
-          className="relative rounded-lg p-2 text-slate-600 hover:bg-slate-100"
-          aria-label="Notifications"
-        >
-          <Bell className="h-5 w-5" />
-          <span className="absolute right-1.5 top-1.5 h-2 w-2 rounded-full bg-red-500 ring-2 ring-white" />
-        </button>
-        <button
-          type="button"
-          className="hidden rounded-lg p-2 text-slate-600 hover:bg-slate-100 sm:inline-flex"
-          aria-label="History"
-        >
-          <History className="h-5 w-5" />
-        </button>
-        <div
-          className="ml-0.5 flex h-8 w-8 items-center justify-center rounded-full bg-gradient-to-br from-indigo-400 to-violet-600 text-xs font-bold text-white ring-2 ring-white sm:ml-1 sm:h-9 sm:w-9"
-          title={user?.email ?? 'User'}
-        >
-          {(user?.name ?? user?.email ?? 'U').slice(0, 1).toUpperCase()}
-        </div>
         <button
           type="button"
           onClick={() => {

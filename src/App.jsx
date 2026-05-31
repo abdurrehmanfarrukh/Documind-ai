@@ -45,24 +45,6 @@ export default function App() {
                 <Route path="upload" element={<UploadCenterPage />} />
                 <Route path="library" element={<Navigate to="/upload#library" replace />} />
                 <Route
-                  path="verification"
-                  element={
-                    <PlaceholderPage
-                      title="AI Verification"
-                      description="Human-in-the-loop review queues will appear here once connected to your API."
-                    />
-                  }
-                />
-                <Route
-                  path="analytics"
-                  element={
-                    <PlaceholderPage
-                      title="Analytics"
-                      description="Charts and export jobs will live here when your data pipeline is wired up."
-                    />
-                  }
-                />
-                <Route
                   path="settings"
                   element={
                     <PlaceholderPage

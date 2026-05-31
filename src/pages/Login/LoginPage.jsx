@@ -104,32 +104,8 @@ export function LoginPage() {
         }}
       />
 
-      <header className="relative z-10 flex items-center justify-between gap-3 px-4 py-4 sm:px-8 sm:py-6">
+      <header className="relative z-10 px-4 py-4 sm:px-8 sm:py-6">
         <span className="text-base font-bold text-slate-900 sm:text-lg">DocMind AI</span>
-        <nav className="hidden items-center gap-4 text-sm font-medium text-slate-700 md:flex md:gap-6">
-          <a href="#product" className="hover:text-indigo-600">
-            Product
-          </a>
-          <a href="#enterprise" className="hover:text-indigo-600">
-            Enterprise
-          </a>
-          <a href="#pricing" className="hover:text-indigo-600">
-            Pricing
-          </a>
-          <span className="text-indigo-600">Sign In</span>
-          <button
-            type="button"
-            className="rounded-lg bg-indigo-600 px-4 py-2 text-white shadow-sm hover:bg-indigo-700"
-          >
-            Get Started
-          </button>
-        </nav>
-        <button
-          type="button"
-          className="rounded-lg bg-indigo-600 px-3 py-1.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-700 md:hidden"
-        >
-          Sign In
-        </button>
       </header>
 
       <div className="relative z-10 flex min-h-[calc(100dvh-120px)] items-center justify-center px-4 pb-16 sm:pb-24">

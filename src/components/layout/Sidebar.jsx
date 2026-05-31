@@ -2,8 +2,6 @@ import { NavLink, useNavigate, useLocation } from 'react-router-dom'
 import {
   LayoutDashboard,
   CloudUpload,
-  ShieldCheck,
-  BarChart3,
   Settings,
   HelpCircle,
   Plus,
@@ -13,8 +11,6 @@ import {
 const nav = [
   { to: '/dashboard', label: 'Dashboard', icon: LayoutDashboard },
   { to: '/upload', label: 'Upload Center', icon: CloudUpload },
-  { to: '/verification', label: 'AI Verification', icon: ShieldCheck },
-  { to: '/analytics', label: 'Analytics', icon: BarChart3 },
 ]
 
 const bottomNav = [
