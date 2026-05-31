@@ -256,7 +256,7 @@ export function UploadCenterPage() {
   return (
     <div className="relative pb-16">
       <div className="mb-8">
-        <h1 className="text-2xl font-bold text-slate-900">Upload Center</h1>
+        <h1 className="text-xl font-bold text-slate-900 sm:text-2xl">Upload Center</h1>
         <p className="mt-1 text-sm text-slate-600">
           Files you confirm are uploaded <strong>as-is</strong> (same name and format) to <strong>Firebase Storage</strong>.
           <strong> Firestore</strong> keeps metadata in the{' '}
@@ -295,7 +295,7 @@ export function UploadCenterPage() {
         onDragLeave={() => setDragOver(false)}
         onDrop={handleDrop}
         className={[
-          'rounded-2xl border-2 border-dashed p-8 text-center transition sm:p-12',
+          'rounded-2xl border-2 border-dashed p-5 text-center transition sm:p-8 md:p-12',
           dragOver ? 'border-indigo-500 bg-indigo-50/50' : 'border-slate-200 bg-white',
         ].join(' ')}
       >
@@ -562,7 +562,7 @@ export function UploadCenterPage() {
         type="button"
         disabled={uploadBatchBusy}
         onClick={() => openFilePicker()}
-        className="fixed bottom-8 right-8 flex h-14 w-14 items-center justify-center rounded-full bg-indigo-600 text-white shadow-lg hover:bg-indigo-700 disabled:cursor-not-allowed disabled:opacity-50"
+        className="fixed bottom-4 right-4 z-30 flex h-12 w-12 items-center justify-center rounded-full bg-indigo-600 text-white shadow-lg hover:bg-indigo-700 disabled:cursor-not-allowed disabled:opacity-50 sm:bottom-8 sm:right-8 sm:h-14 sm:w-14"
         aria-label="Quick upload"
       >
         <Plus className="h-7 w-7" />

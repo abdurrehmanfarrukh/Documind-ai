@@ -5,8 +5,8 @@ export function SupportPage() {
   const { isAuthenticated } = useAuth()
 
   return (
-    <div className="min-h-screen bg-slate-50 p-8">
-      <div className="mx-auto max-w-lg rounded-2xl border border-slate-200 bg-white p-8 shadow-sm">
+    <div className="min-h-screen bg-slate-50 p-4 sm:p-8">
+      <div className="mx-auto max-w-lg rounded-2xl border border-slate-200 bg-white p-6 shadow-sm sm:p-8">
         <h1 className="text-xl font-bold text-slate-900">Support</h1>
         <p className="mt-2 text-sm text-slate-600">
           This is a mock support page. Connect your help desk or docs here when the backend is ready.

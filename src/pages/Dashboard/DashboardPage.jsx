@@ -213,7 +213,7 @@ export function DashboardPage() {
   return (
     <div className="space-y-8">
       <div>
-        <h1 className="text-2xl font-bold text-slate-900">Operational Overview</h1>
+        <h1 className="text-xl font-bold text-slate-900 sm:text-2xl">Operational Overview</h1>
         <p className="mt-1 text-sm text-slate-600">
           Welcome back{user?.name ? `, ${user.name}` : ''} — your Firebase-backed workspace and cloud
           uploads in one place.

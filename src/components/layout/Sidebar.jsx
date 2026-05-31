@@ -7,6 +7,7 @@ import {
   Settings,
   HelpCircle,
   Plus,
+  X,
 } from 'lucide-react'
 
 const nav = [
@@ -21,11 +22,12 @@ const bottomNav = [
   { to: '/support', label: 'Support', icon: HelpCircle },
 ]
 
-export function Sidebar() {
+export function Sidebar({ open = false, onClose }) {
   const navigate = useNavigate()
   const location = useLocation()
 
   function handleNewDocument() {
+    onClose?.()
     if (location.pathname === '/upload') {
       window.dispatchEvent(new CustomEvent('docmind-open-upload-picker'))
       return
@@ -34,18 +36,34 @@ export function Sidebar() {
   }
 
   return (
-    <aside className="flex h-full w-64 shrink-0 flex-col border-r border-slate-200 bg-white">
-      <div className="border-b border-slate-100 px-5 py-6">
-        <div className="flex items-center gap-3">
-          <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-indigo-600 text-white shadow-sm">
-            <span className="text-lg font-bold">D</span>
+    <aside
+      className={[
+        'fixed inset-y-0 left-0 z-50 flex h-full w-64 max-w-[min(85vw,16rem)] flex-col border-r border-slate-200 bg-white shadow-xl transition-transform duration-200 ease-out',
+        'lg:static lg:z-auto lg:max-w-none lg:shrink-0 lg:translate-x-0 lg:shadow-none',
+        open ? 'translate-x-0' : '-translate-x-full lg:translate-x-0',
+      ].join(' ')}
+    >
+      <div className="border-b border-slate-100 px-4 py-5 sm:px-5 sm:py-6">
+        <div className="flex items-center justify-between gap-3">
+          <div className="flex min-w-0 items-center gap-3">
+            <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-indigo-600 text-white shadow-sm">
+              <span className="text-lg font-bold">D</span>
+            </div>
+            <div className="min-w-0">
+              <p className="truncate text-sm font-semibold text-slate-900">DocMind AI</p>
+              <p className="text-[10px] font-medium uppercase tracking-wider text-slate-500">
+                Enterprise Tier
+              </p>
+            </div>
           </div>
-          <div>
-            <p className="text-sm font-semibold text-slate-900">DocMind AI</p>
-            <p className="text-[10px] font-medium uppercase tracking-wider text-slate-500">
-              Enterprise Tier
-            </p>
-          </div>
+          <button
+            type="button"
+            onClick={onClose}
+            className="rounded-lg p-2 text-slate-500 hover:bg-slate-100 lg:hidden"
+            aria-label="Close menu"
+          >
+            <X className="h-5 w-5" />
+          </button>
         </div>
         <button
           type="button"
@@ -57,11 +75,12 @@ export function Sidebar() {
         </button>
       </div>
 
-      <nav className="flex flex-1 flex-col gap-0.5 px-3 py-4">
+      <nav className="flex flex-1 flex-col gap-0.5 overflow-y-auto px-3 py-4">
         {nav.map(({ to, label, icon: Icon }) => (
           <NavLink
             key={to}
             to={to}
+            onClick={onClose}
             className={({ isActive }) =>
               [
                 'flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium transition',
@@ -82,6 +101,7 @@ export function Sidebar() {
           <NavLink
             key={to}
             to={to}
+            onClick={onClose}
             className={({ isActive }) =>
               [
                 'mb-0.5 flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium transition',

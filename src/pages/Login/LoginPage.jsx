@@ -104,9 +104,9 @@ export function LoginPage() {
         }}
       />
 
-      <header className="relative z-10 flex items-center justify-between px-8 py-6">
-        <span className="text-lg font-bold text-slate-900">DocMind AI</span>
-        <nav className="flex items-center gap-6 text-sm font-medium text-slate-700">
+      <header className="relative z-10 flex items-center justify-between gap-3 px-4 py-4 sm:px-8 sm:py-6">
+        <span className="text-base font-bold text-slate-900 sm:text-lg">DocMind AI</span>
+        <nav className="hidden items-center gap-4 text-sm font-medium text-slate-700 md:flex md:gap-6">
           <a href="#product" className="hover:text-indigo-600">
             Product
           </a>
@@ -124,10 +124,16 @@ export function LoginPage() {
             Get Started
           </button>
         </nav>
+        <button
+          type="button"
+          className="rounded-lg bg-indigo-600 px-3 py-1.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-700 md:hidden"
+        >
+          Sign In
+        </button>
       </header>
 
-      <div className="relative z-10 flex min-h-[calc(100vh-120px)] items-center justify-center px-4 pb-24">
-        <div className="w-full max-w-md rounded-2xl border border-slate-100 bg-white p-8 shadow-xl shadow-indigo-100/50">
+      <div className="relative z-10 flex min-h-[calc(100dvh-120px)] items-center justify-center px-4 pb-16 sm:pb-24">
+        <div className="w-full max-w-md rounded-2xl border border-slate-100 bg-white p-6 shadow-xl shadow-indigo-100/50 sm:p-8">
           <div className="mb-6 flex justify-center">
             <div className="flex h-14 w-14 items-center justify-center rounded-xl bg-violet-100">
               <span className="text-2xl">🧠</span>
@@ -272,7 +278,7 @@ export function LoginPage() {
         </div>
       </div>
 
-      <div className="relative z-10 flex flex-col items-center gap-4 px-8 pb-8">
+      <div className="relative z-10 flex flex-col items-center gap-4 px-4 pb-8 sm:px-8">
         <div className="flex items-center gap-2 text-xs text-slate-500">
           <Shield className="h-4 w-4" />
           Enterprise-grade 256-bit encryption active
